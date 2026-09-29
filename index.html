@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shanea's Birthday Keepsake</title>
+
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background:
+      linear-gradient(135deg, #ffd6e7, #ffb6d5, #f783b8, #ffd9e8);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* Floating hearts and sparkles */
+  .float {
+    position: fixed;
+    bottom: -30px;
+    font-size: 20px;
+    animation: floatUp 7s linear infinite;
+    opacity: 0.8;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(-110vh);
+      opacity: 0;
+    }
+  }
+
+  .container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Main card */
+  .card {
+    background: rgba(255, 255, 255, 0.30);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    max-width: 420px;
+    width: 100%;
+    padding: 28px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(173, 35, 96, 0.25);
+    text-align: center;
+    display: none;
+  }
+
+  h1 {
+    color: #9e1458;
+    font-size: 28px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.8);
+  }
+
+  p {
+    color: #7d1749;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 22px;
+    margin: 18px 0;
+    border: 3px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 10px 25px rgba(158, 20, 88, 0.25);
+  }
+
+  audio {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 20px;
+  }
+
+  .brand {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #8c2757;
+  }
+
+  .brand span {
+    color: #b51262;
+    font-weight: bold;
+  }
+
+  /* Password screen */
+  .password-box {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    padding: 32px;
+    border-radius: 30px;
+    box-shadow: 0 15px 40px rgba(173, 35, 96, 0.25);
+    text-align: center;
+    max-width: 350px;
+    width: 100%;
+  }
+
+  .password-box h1 {
+    color: #a4145d;
+    font-size: 25px;
+  }
+
+  input {
+    padding: 13px;
+    width: 82%;
+    border-radius: 14px;
+    border: 2px solid #f3a4c6;
+    outline: none;
+    margin-top: 18px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #7d1749;
+  }
+
+  input:focus {
+    border-color: #d63384;
+    box-shadow: 0 0 10px rgba(214, 51, 132, 0.25);
+  }
+
+  button {
+    margin-top: 18px;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #ff4f9a, #d63384);
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 5px 15px rgba(214, 51, 132, 0.35);
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ff70ad, #c21868);
+  }
+
+  .error {
+    color: #b51262;
+    font-size: 14px;
+    margin-top: 12px;
+    font-weight: 600;
+  }
+
+  .heart {
+    font-size: 32px;
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING ANIMATION -->
+<script>
+  const icons = ["💕", "✨", "💗", "🎀", "♡"];
+
+  function createFloat() {
+    const el = document.createElement("div");
+
+    el.className = "float";
+    el.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.fontSize = (14 + Math.random() * 26) + "px";
+
+    document.body.appendChild(el);
+
+    setTimeout(() => {
+      el.remove();
+    }, 7000);
+  }
+
+  setInterval(createFloat, 700);
+</script>
+
+<div class="container">
+
+  <!-- PASSWORD SCREEN -->
+  <div class="password-box" id="passwordBox">
+
+    <div class="heart">💕</div>
+
+    <h1>Shanea's Birthday</h1>
+
+    <p>
+      Enter the password to unlock<br>
+      your special birthday surprise.
+    </p>
+
+    <input
+      type="password"
+      id="passwordInput"
+      placeholder="Enter password"
+      onkeydown="if(event.key === 'Enter') checkPassword()"
+    >
+
+    <br>
+
+    <button onclick="checkPassword()">
+      Unlock Surprise 💗
+    </button>
+
+    <div class="error" id="error"></div>
+
+  </div>
+
+
+  <!-- MAIN CARD -->
+  <div class="card" id="mainCard">
+
+    <div class="heart">💕</div>
+
+    <h1>Shanea's Birthday 💗</h1>
+
+    <p>
+      A special voice keepsake<br>
+      made with love just for you.
+    </p>
+
+    <img
+      src="photo.jpg"
+      alt="Shanea's Birthday Photo"
+    >
+
+    <audio controls autoplay>
+      <source src="audio.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <div class="brand">
+      Created by
+      <span>Limitless Graphics by Thea</span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+  // PASSWORD
+  const correctPassword = "Shanea";
+
+  function checkPassword() {
+
+    const input =
+      document.getElementById("passwordInput").value.trim();
+
+    if (input.toLowerCase() === correctPassword.toLowerCase()) {
+
+      document.getElementById("passwordBox").style.display = "none";
+
+      document.getElementById("mainCard").style.display = "block";
+
+      // Play audio after unlock
+      const audio = document.querySelector("audio");
+
+      audio.play().catch(() => {
+        console.log("Audio playback requires user interaction.");
+      });
+
+    } else {
+
+      document.getElementById("error").innerText =
+        "Wrong password — try again 💕";
+
+    }
+  }
+</script>
+
+</body>
+</html>
